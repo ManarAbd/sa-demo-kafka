@@ -1,0 +1,30 @@
+{
+  "application": {
+    "data": {
+      "providers": {
+        "current_weather_data": {
+          "call_count": 1,
+          "topic_name": "current_weather_data"
+        },
+        "sample_weather_data": {
+          "call_count": 3,
+          "topic_name": "sample_weather_data"
+        }
+      }
+    },
+    "kafka": {
+      "producer": {
+        "localhost": {
+          "bootstrap_servers": "localhost:9092"
+        },
+        "aiven": {
+          "bootstrap_servers": "kafka-lab1-manar-df50.aivencloud.com:18069",
+          "security_protocol": "SSL",
+          "ssl_cafile": "../secrets//aiven/kafka-lab1/ca.pem",
+          "ssl_certfile": "../secrets/aiven/kafka-lab1/service.cert",
+          "ssl_keyfile": "../secrets/aiven/kafka-lab1/service.key"
+        }
+      }
+    }
+  }
+}
