@@ -50,3 +50,55 @@ Example of listening to new incoming messages:
 ```bash
 kafka-console-consumer --bootstrap-server localhost:9092 --topic my_first_topic
 ```
+
+## Simple Kafka Producer
+
+The function below is a simple Kafka producer using kafka-python library;
+
+```Python
+def simple_producer(conf, topic_name, key, payload):
+    producer = KafkaProducer(**conf)
+
+    message = { 'tag' : 'simple_producer',
+        'uuid' : str(uuid.uuid4()),
+        'date' : datetime.now().isoformat(),
+        'payload' : payload
+    }
+    
+    print("Sending: {}".format(message))
+    producer.send(topic_name, key=json.dumps(key).encode('utf-8'), value=json.dumps(message).encode('utf-8'))
+
+    # Wait for all messages to be sent
+    producer.flush()
+```
+
+We are reading the configuration settings for KafkaProducer (a Kafka client that publish records to a Kafka cluster) from a YAML file and converting them to an arguments list, then using the *send* method for sending asynchrous record to a Kafka topic (represented by *topic_name*).
+
+All is needed to get a message into a Kafka topic is to call the *simple_producer* function by providing it with the topic name, a key and the message itself. So simple!
+
+### Using Real time Weather data
+
+[current_weather_provider.py]
+To make the examples more realistic, we are calling an openweathermap API and getting the current weather data for multiple cities around the glob (the list if cities is configurable in a YAML file, so no code change is required!) and then pushing this information in real time fashion thru the topic. The city name is given as a key, which helps with sorting the messages in various partitions inside the same topic..
+
+```Python
+while i > 0:
+    dict = current_weather_provider()
+    for key in dict:
+        simple_producer(producer_conf, providers_list['current_weather_data']['topic_name'], key, dict[key])
+    i -= 1
+```
+
+### Using Sample Json data
+
+Another simpler example is to iterate through local data files, read and push messages thru the Kafka producer. All is needed is jut to add or remove files in the *~/data/* directory.
+
+## Consumer Message Example
+
+The json snippet below shows a message recieved at the consumer end, based on real time data from openweathermap API.
+
+```Json
+{"tag": "simple_producer", "uuid": "c50947ec-417d-4e22-86d0-55aa004f51f7", "date": "2022-02-06T01:07:06.593565", "payload": {"coord": {"lon": 24.9355, "lat": 60.1695}, "weather": [{"id": 804, "main": "Clouds", "description": "overcast clouds", "icon": "04d"}], "base": "stations", "main": {"temp": 0.08, "feels_like": -1.4, "temp_min": -0.79, "temp_max": 1.98, "pressure": 989, "humidity": 87}, "visibility": 1400, "wind": {"speed": 1.34, "deg": 234, "gust": 2.68}, "clouds": {"all": 100}, "dt": 1644062332, "sys": {"type": 2, "id": 2028456, "country": "FI", "sunrise": 1644042358, "sunset": 1644072152}, "timezone": 7200, "id": 658225, "name": "Helsinki", "cod": 200}}
+```
+
+## Aiven Kafka
