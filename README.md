@@ -53,6 +53,8 @@ kafka-console-consumer --bootstrap-server localhost:9092 --topic my_first_topic
 
 ## Architecture Diagram
 
+Simple but descriptive architecture diagram for our porject:
+
 <p align="center">
 <img src="images/SimpleArchitectureDiagram.png" width="80%">
 </p>
@@ -199,7 +201,7 @@ From the InfluxDB service console, click on Service Integrations, select *Metric
 </p>
 
 
-Aiven services will create, automatically in the background, connection credentials from Grafana to InfluxDB, as the screenshots below verify.
+Aiven services will create connection credentials from Grafana to InfluxDB, as the screenshots below verify (This happens automatically in the background and we don't need to worry about it!);
 
 <p align="center">
 <img src="images/influxgrafana1.png" width="80%">
@@ -238,8 +240,8 @@ Click on Browse/dashboards from the left corner and it should be seen. The Dashb
 In this example, we will customise one of the existing visuals to show the total cumulative count of messages recieved by a particular topic;
 
 - Dupliacte the *Inbound Messages* visual and rename the new duplicate to *Cumulative messages*. Save.
-- add a condition in from condition *tpic = <topic-name>*
-- select field(count)
+- Add a condition in from condition *tpic = <topic-name>*
+- Select field(count)
 
 Observe the count of incoming messages based on the topic and partition..
 <p align="center">
@@ -247,4 +249,5 @@ Observe the count of incoming messages based on the topic and partition..
 </p>
 
 ## Recap
-In this docmument, we described a simple way to get started with Aiven kafka. Using the Aiven Console we quickly provisioned a new Kafka cluster and integrated with Influx DB and Grafana in no-time. We used simple Python code running on a PC to produce Telemetry data and send it to the Kafka Cluster, We then showcased the integartion pipeline and how the messages were consumed and sinked into a time-series database. We used the Aiven console andGrafana tool for visualisation and observability. 
+
+In this docmument, we described a simple way to get started with Aiven kafka. Using the Aiven Console we quickly provisioned a new Kafka cluster and integrated with Influx DB and Grafana in no-time. We used simple Python code running on a PC to produce telemetry data and send it to the Kafka Cluster, we then showcased the integartion pipeline and how the messages were consumed and sinked into a time-series database. We used the Aiven console andGrafana tool for visualisation and observability.
