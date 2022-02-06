@@ -20,6 +20,7 @@ def current_weather_provider():
         req = service_url + "weather?q=" + city + "&appid=" + appid + "&units=" + units
         response = requests.get(req)
         print (req)
+        print (json.dumps(response.json()))
         key = city
         dict[key] = response.json()
         time.sleep(1)

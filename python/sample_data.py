@@ -11,7 +11,7 @@ def sample_weather_data(data_files):
         with open(os.path.join(data_files, filename), 'r') as f:
             text = f.read()
             key = filename
-            dict[key] = text
+            dict[key] = json.loads(text)
             time.sleep(1)
 
     print ('#')

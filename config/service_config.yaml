@@ -8,9 +8,9 @@ service:
         - Ottawa,ca
         - New York,us
         - Helsinki,fi
-        #- London,uk
-        #- Beirut,lb
-        #- Singapore,sg
-        #- Sydney,au
-        #- Auckland,nz
+        - London,uk
+        - Beirut,lb
+        - Singapore,sg
+        - Sydney,au
+        - Auckland,nz
 ...

@@ -14,7 +14,7 @@ with open(in_conf_file) as fpi:
 with open(out_conf_file, 'w') as fpo:
     json.dump(app_data, fpo, indent=2)
 
-producer_conf = app_data['application']['kafka']['producer']['localhost']
+producer_conf = app_data['application']['kafka']['producer']['aiven']
 providers_list = app_data['application']['data']['providers']
 
 i=int(providers_list['current_weather_data']['call_count'])
