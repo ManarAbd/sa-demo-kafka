@@ -51,6 +51,12 @@ Example of listening to new incoming messages:
 kafka-console-consumer --bootstrap-server localhost:9092 --topic my_first_topic
 ```
 
+## Architecture Diagram
+
+<p align="center">
+<img src="images/SimpleArchitectureDiagram.png" width="80%">
+</p>
+
 ## Simple Kafka Producer
 
 The function below is a simple Kafka producer using kafka-python library;
